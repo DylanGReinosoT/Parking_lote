@@ -1,0 +1,119 @@
+import 'package:estacionamiento/wapper.dart'; // Asegúrate de que la ruta sea correcta
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class Forgotpage extends StatefulWidget {
+  const Forgotpage({super.key});
+
+  @override
+  State<Forgotpage> createState() => _ForgotpageState();
+}
+
+class _ForgotpageState extends State<Forgotpage> {
+  final TextEditingController email = TextEditingController();
+
+  // Función para enviar el correo de recuperación
+  void reset() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email.text);
+      // Navegar a la página principal después de enviar el correo
+      Get.offAll(const Wapper());
+    } on FirebaseAuthException catch (e) {
+      // Mostrar un mensaje de error si falla
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? "Error al enviar el correo"),
+          backgroundColor: Colors.red[800],
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white, // Fondo blanco
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+              elevation: 8, // Sombra
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16), // Bordes redondeados
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Título
+                    Text(
+                      "Recuperar Contraseña",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[800],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Campo de correo electrónico
+                    TextField(
+                      controller: email,
+                      decoration: InputDecoration(
+                        labelText: "Correo electrónico",
+                        labelStyle: TextStyle(color: Colors.red[800]),
+                        prefixIcon: Icon(Icons.email, color: Colors.red[800]),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red[800]!),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    // Botón de recuperación
+                    ElevatedButton(
+                      onPressed: reset,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[800],
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        "Enviar Correo",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Enlace para regresar al inicio de sesión
+                    TextButton(
+                      onPressed: () {
+                        // Navegar a la página de inicio de sesión
+                        Get.back(); // O usar Get.to(() => LoginPage()) si tienes una página de login
+                      },
+                      child: Text(
+                        "Regresar al inicio de sesión",
+                        style: TextStyle(
+                          color: Colors.red[800],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

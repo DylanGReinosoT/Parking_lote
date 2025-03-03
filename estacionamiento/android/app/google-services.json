@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1063684617926",
+    "project_id": "parking-lot-98115",
+    "storage_bucket": "parking-lot-98115.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063684617926:android:5c321b93a7c25d3db549c7",
+        "android_client_info": {
+          "package_name": "com.example.estacionamiento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063684617926-ggvpee7aa9ng7akgl9nbe6igavarfb6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.estacionamiento",
+            "certificate_hash": "4f8bdc45bf459810811d7fb727b6b963979a524e"
+          }
+        },
+        {
+          "client_id": "1063684617926-clh7o2mpfc5j0jroml5npo0qjfo897tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9H_MnWmvGs5vNGoFq5s6a_h0FAfS8hLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063684617926-clh7o2mpfc5j0jroml5npo0qjfo897tu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
