@@ -1,4 +1,4 @@
-import 'package:estacionamiento/alters/parking_paiter.dart';
+import 'package:estacionamiento/view/ArucoParkingView.dart';
 import 'package:flutter/material.dart';
 
 class ParkingPage extends StatelessWidget {
@@ -18,7 +18,7 @@ class ParkingPage extends StatelessWidget {
       body: Center(
         child: CustomPaint(
           size: const Size(300, 500),
-          painter: ParkingPainter(),
+          child: ArucoParkingView(),
         ),
       ),
     );

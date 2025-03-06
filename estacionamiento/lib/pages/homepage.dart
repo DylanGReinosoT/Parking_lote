@@ -10,16 +10,13 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  int _selectedIndex = 0; // Índice para controlar la página actual
+  int _selectedIndex = 0;
 
-  // Lista de páginas para navegar
   final List<Widget> _pages = [
-    const WelcomeMessage(), // Mensaje de bienvenida
-    const Userpage(), // Página de información del usuario
-    const ParkingPage(), // Página del mapa de estacionamiento
+    const ParkingPage(),
+    const Userpage(),
   ];
 
-  // Función para cambiar de página
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -31,51 +28,66 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Inicio',
+          'Parking Lot',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.red[800],
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: _pages[_selectedIndex], // Muestra la página seleccionada
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: Colors.red[800],
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Usuario',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_parking),
-            label: 'Estacionamiento',
-          ),
-        ],
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        child: _pages[_selectedIndex],
       ),
-    );
-  }
-}
-
-// Mensaje de bienvenida
-class WelcomeMessage extends StatelessWidget {
-  const WelcomeMessage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        '¡Bienvenido!',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          elevation: 10,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          selectedItemColor: Colors.red[800],
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              icon: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                padding: EdgeInsets.all(_selectedIndex == 0 ? 8 : 4),
+                decoration: BoxDecoration(
+                  color: _selectedIndex == 0
+                      ? Colors.red[800]
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.local_parking,
+                  color: _selectedIndex == 0 ? Colors.white : Colors.grey,
+                ),
+              ),
+              label: 'Estacionamiento',
+            ),
+            BottomNavigationBarItem(
+              icon: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                padding: EdgeInsets.all(_selectedIndex == 1 ? 8 : 4),
+                decoration: BoxDecoration(
+                  color: _selectedIndex == 1
+                      ? Colors.red[800]
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.person,
+                  color: _selectedIndex == 1 ? Colors.white : Colors.grey,
+                ),
+              ),
+              label: 'Usuario',
+            )
+          ],
         ),
       ),
     );
